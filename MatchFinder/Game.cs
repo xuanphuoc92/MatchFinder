@@ -29,7 +29,7 @@ namespace MatchFinder
                 StartTime = DateTime.Now;
 
             Cell cell = Cells[cellIndex];
-            if (cell.IsPicked) 
+            if (cell.IsPicked || cell.IsMatched) 
                 return this;
 
             cell.IsPicked = true;
