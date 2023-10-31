@@ -25,5 +25,20 @@ namespace MatchFinder.Test
             game.Pick(0);
             game.StartTime.Should().BeOnOrAfter(now);
         }
+
+        [TestMethod]
+        public void _03_IsPicked()
+        {
+            Game game = Game.New();
+            game.Add(0).Add(0);
+            game.Cells[0].IsPicked.Should().BeFalse();
+            game.Cells[1].IsPicked.Should().BeFalse();
+            game.Pick(0);
+            game.Cells[0].IsPicked.Should().BeTrue();
+            game.Cells[1].IsPicked.Should().BeFalse();
+            game.Pick(0); // Try Pick again, which is invalid
+            game.Cells[0].IsPicked.Should().BeTrue();
+            game.Cells[1].IsPicked.Should().BeFalse();
+        }
     }
 }

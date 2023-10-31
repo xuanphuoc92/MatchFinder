@@ -24,11 +24,14 @@ namespace MatchFinder
         {
             if (StartTime == null)
                 StartTime = DateTime.Now;
+
+            Cells[cellIndex].IsPicked = true;
         }
     }
 
     public class Cell
     {
         public int Content { get; set; }
+        public bool IsPicked { get; set; }
     }
 }
