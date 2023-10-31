@@ -6,6 +6,8 @@ namespace MatchFinder
     public class Game
     {
         public List<Cell> Cells { get; private set; }
+        public DateTime? StartTime { get; private set; }
+
         private Game() 
         {
             Cells = new List<Cell>();
@@ -16,6 +18,12 @@ namespace MatchFinder
         {
             Cells.Add(new Cell() { Content = cellContent });
             return this;
+        }
+
+        public void Pick(int cellIndex)
+        {
+            if (StartTime == null)
+                StartTime = DateTime.Now;
         }
     }
 
