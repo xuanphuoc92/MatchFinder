@@ -87,5 +87,24 @@ namespace MatchFinder.Test
 
             game.Cells[0].IsPicked.Should().BeFalse();
         }
+
+        [TestMethod]
+        public void _07_EndTime()
+        {
+            Game game = Game.New();
+            game.Add(0)
+                .Add(0)
+                .Add(1)
+                .Add(1);
+
+            game.EndTime.Should().BeNull();
+            game.Pick(0).Pick(1).Pick(2);
+            game.EndTime.Should().BeNull();
+
+            DateTime now = DateTime.Now;
+            game.Pick(3);
+            game.EndTime.Should().BeOnOrAfter(now);
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MatchFinder
 {
@@ -7,6 +8,7 @@ namespace MatchFinder
     {
         public List<Cell> Cells { get; private set; }
         public DateTime? StartTime { get; private set; }
+        public DateTime? EndTime { get; private set; }
 
         private Game() 
         {
@@ -45,8 +47,20 @@ namespace MatchFinder
             }
 
             Match();
+            CheckEnd();
             Unpick();
             return this;
+        }
+
+        private void CheckEnd()
+        {
+            if (_pick1.IsMatched == false)
+                return;
+
+            if (Cells.Any(c => c.IsMatched == false))
+                return;
+
+            EndTime = DateTime.Now;
         }
 
         private void Match()
@@ -59,16 +73,15 @@ namespace MatchFinder
 
         private void Unpick()
         {
-            _pick1.IsPicked = false;
-            _pick2.IsPicked = false;
+            _pick1.IsPicked = _pick2.IsPicked = false;
             _pick1 = _pick2 = null;
         }
     }
 
     public class Cell
     {
-        public int Content { get; set; }
-        public bool IsPicked { get; set; }
-        public bool IsMatched { get; set; }
+        public int Content { get; internal set; }
+        public bool IsPicked { get; internal set; }
+        public bool IsMatched { get; internal set; }
     }
 }
