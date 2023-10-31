@@ -52,6 +52,11 @@ namespace MatchFinder.Test
 
             game.Pick(0).Pick(2);
 
+            game.Cells[0].IsPicked.Should().BeTrue();
+            game.Cells[2].IsPicked.Should().BeTrue();
+
+            game.Pick(1);
+
             game.Cells[0].IsPicked.Should().BeFalse();
             game.Cells[2].IsPicked.Should().BeFalse();
         }

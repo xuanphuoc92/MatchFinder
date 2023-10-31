@@ -20,6 +20,7 @@ namespace MatchFinder
             Cells = new List<Cell>();
             StartTime = null;
             EndTime = null;
+            _picked = new List<Cell>();
             return this;
         }
 
@@ -30,59 +31,60 @@ namespace MatchFinder
             return this;
         }
 
-        private Cell _pick1 { get; set; } = null;
-        private Cell _pick2 { get; set; } = null;
+        private List<Cell> _picked = new List<Cell>();
 
         public Game Pick(int cellIndex)
+        {
+            Cell cell = Cells[cellIndex];
+            return Pick(cell);
+        }
+
+        public Game Pick(Cell cell)
         {
             if (StartTime == null)
                 StartTime = DateTime.Now;
 
-            Cell cell = Cells[cellIndex];
-            if (cell.IsPicked || cell.IsMatched) 
+            if (cell.IsPicked || cell.IsMatched)
                 return this;
+
+            if (_picked.Count == 2)
+            {
+                Unpick();
+            }
 
             cell.IsPicked = true;
-            if (_pick1 == null)
+            _picked.Add(cell);
+
+            if (_picked.Count == 2)
             {
-                _pick1 = cell;
-                return this;
+                Match();
             }
 
-            if (_pick2 == null)
-            {
-                _pick2 = cell;
-            }
-
-            Match();
-            CheckEnd();
-            Unpick();
             return this;
+        }
+
+        private void Match()
+        {
+            if (_picked[0].Content == _picked[1].Content)
+            {
+                _picked[0].IsMatched = _picked[1].IsMatched = true;
+                Unpick();
+                CheckEnd();
+            }
         }
 
         private void CheckEnd()
         {
-            if (_pick1.IsMatched == false)
-                return;
-
             if (Cells.Any(c => c.IsMatched == false))
                 return;
 
             EndTime = DateTime.Now;
         }
 
-        private void Match()
-        {
-            if (_pick1.Content == _pick2.Content)
-            {
-                _pick1.IsMatched = _pick2.IsMatched= true;
-            }
-        }
-
         private void Unpick()
         {
-            _pick1.IsPicked = _pick2.IsPicked = false;
-            _pick1 = _pick2 = null;
+            _picked.ForEach(c => c.IsPicked = false);
+            _picked.Clear();
         }
 
         public Game AddRandoms(int cells)
