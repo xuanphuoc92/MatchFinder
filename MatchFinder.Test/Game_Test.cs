@@ -113,5 +113,12 @@ namespace MatchFinder.Test
             game.Cells.Should().HaveCount(30);
             game.Cells.Max(c => c.Content).Should().Be(14);
         }
+
+        [TestMethod]
+        public void _09_Reset()
+        {
+            Game game = Game.New().AddRandoms(30).Reset();
+            game.Cells.Should().HaveCount(0);
+        }
     }
 }

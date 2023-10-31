@@ -12,7 +12,15 @@ namespace MatchFinder
 
         private Game() 
         {
+            Reset();
+        }
+
+        public Game Reset()
+        {
             Cells = new List<Cell>();
+            StartTime = null;
+            EndTime = null;
+            return this;
         }
 
         public static Game New() { return new Game(); }
