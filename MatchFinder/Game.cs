@@ -20,12 +20,39 @@ namespace MatchFinder
             return this;
         }
 
-        public void Pick(int cellIndex)
+        private Cell _pick1 { get; set; } = null;
+        private Cell _pick2 { get; set; } = null;
+
+        public Game Pick(int cellIndex)
         {
             if (StartTime == null)
                 StartTime = DateTime.Now;
 
-            Cells[cellIndex].IsPicked = true;
+            Cell cell = Cells[cellIndex];
+            if (cell.IsPicked) 
+                return this;
+
+            cell.IsPicked = true;
+            if (_pick1 == null)
+            {
+                _pick1 = cell;
+                return this;
+            }
+
+            if (_pick2 == null)
+            {
+                _pick2 = cell;
+            }
+
+            Unpick();
+            return this;
+        }
+
+        private void Unpick()
+        {
+            _pick1.IsPicked = false;
+            _pick2.IsPicked = false;
+            _pick1 = _pick2 = null;
         }
     }
 

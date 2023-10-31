@@ -40,5 +40,20 @@ namespace MatchFinder.Test
             game.Cells[0].IsPicked.Should().BeTrue();
             game.Cells[1].IsPicked.Should().BeFalse();
         }
+
+        [TestMethod]
+        public void _04_Unpick()
+        {
+            Game game = Game.New();
+            game.Add(0)
+                .Add(0)
+                .Add(1)
+                .Add(1);
+
+            game.Pick(0).Pick(2);
+
+            game.Cells[0].IsPicked.Should().BeFalse();
+            game.Cells[2].IsPicked.Should().BeFalse();
+        }
     }
 }
