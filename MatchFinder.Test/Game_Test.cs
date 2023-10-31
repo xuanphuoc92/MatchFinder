@@ -55,5 +55,23 @@ namespace MatchFinder.Test
             game.Cells[0].IsPicked.Should().BeFalse();
             game.Cells[2].IsPicked.Should().BeFalse();
         }
+
+        [TestMethod]
+        public void _05_IsMatched()
+        {
+            Game game = Game.New();
+            game.Add(0)
+                .Add(0)
+                .Add(1)
+                .Add(1);
+
+            game.Cells[0].IsMatched.Should().BeFalse();
+            game.Cells[1].IsMatched.Should().BeFalse();
+
+            game.Pick(0).Pick(1);
+
+            game.Cells[0].IsMatched.Should().BeTrue();
+            game.Cells[1].IsMatched.Should().BeTrue();            
+        }
     }
 }

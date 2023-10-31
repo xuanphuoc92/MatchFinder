@@ -44,8 +44,17 @@ namespace MatchFinder
                 _pick2 = cell;
             }
 
+            Match();
             Unpick();
             return this;
+        }
+
+        private void Match()
+        {
+            if (_pick1.Content == _pick2.Content)
+            {
+                _pick1.IsMatched = _pick2.IsMatched= true;
+            }
         }
 
         private void Unpick()
@@ -60,5 +69,6 @@ namespace MatchFinder
     {
         public int Content { get; set; }
         public bool IsPicked { get; set; }
+        public bool IsMatched { get; set; }
     }
 }
