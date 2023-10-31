@@ -76,6 +76,19 @@ namespace MatchFinder
             _pick1.IsPicked = _pick2.IsPicked = false;
             _pick1 = _pick2 = null;
         }
+
+        public Game AddRandoms(int cells)
+        {
+            for (int i = 0; i < cells; i++)
+                Add(-1);
+
+            Random rnd = new Random();
+            var randomlyOrdered = Cells.OrderBy(c => rnd.Next()).ToList();
+            for (int i = 0; i < cells; i++)
+                randomlyOrdered[i].Content = i / 2;
+
+            return this;
+        }
     }
 
     public class Cell

@@ -104,7 +104,14 @@ namespace MatchFinder.Test
             DateTime now = DateTime.Now;
             game.Pick(3);
             game.EndTime.Should().BeOnOrAfter(now);
+        }
 
+        [TestMethod]
+        public void _08_AddRandoms()
+        {
+            Game game = Game.New().AddRandoms(30);
+            game.Cells.Should().HaveCount(30);
+            game.Cells.Max(c => c.Content).Should().Be(14);
         }
     }
 }
