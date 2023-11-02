@@ -44,7 +44,10 @@ namespace MatchFinder
             if (StartTime == null)
                 StartTime = DateTime.Now;
 
-            if (cell.IsPicked || cell.IsMatched)
+            if (cell.IsPicked && _picked.Count < 2)
+                return this;
+
+            if (cell.IsMatched)
                 return this;
 
             if (_picked.Count == 2)
