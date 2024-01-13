@@ -1,3 +1,3 @@
 # MatchFinder
 
-Play the published game at [https://peter-find-matches.azurewebsites.net/](https://peter-find-matches.azurewebsites.net/).
+Play the published game at [https://peter-do-stuff.azurewebsites.net/](https://peter-do-stuff.azurewebsites.net/) (old link have been put off).
